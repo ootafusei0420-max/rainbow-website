@@ -5,3 +5,29 @@
 body {
   margin: 0;
 }
+
+@layer components {
+  .type-display {
+    @apply text-display font-extrabold text-text-primary;
+  }
+
+  .type-h1 {
+    @apply text-h1 font-bold text-text-primary;
+  }
+
+  .type-h2 {
+    @apply text-h2 font-bold text-text-primary;
+  }
+
+  .type-body {
+    @apply text-body text-text-secondary;
+  }
+
+  .type-caption {
+    @apply text-caption font-semibold text-text-muted;
+  }
+
+  .content-readable {
+    @apply max-w-[65ch];
+  }
+}

@@ -2,7 +2,7 @@ import { ArrowRight, Menu, X } from 'lucide-react';
 import { Button } from '../common/Button';
 import { MOBILE_NAV_ITEMS, NAV_ITEMS } from '../../data/siteData';
 
-export function Header({ isMenuOpen, onMenuToggle, onScrollToSection }) {
+export function Header({ isMenuOpen, onMenuToggle, onScrollToSection, onOpenTrialModal }) {
   return (
     <header className="fixed top-0 w-full z-50 transition-all duration-300">
       <div className="absolute inset-0 bg-white/80 backdrop-blur-md border-b border-white/20 shadow-sm" />
@@ -26,7 +26,7 @@ export function Header({ isMenuOpen, onMenuToggle, onScrollToSection }) {
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-sky-600 transition-all group-hover:w-full" />
             </button>
           ))}
-          <Button variant="accent" onClick={() => onScrollToSection('contact')} icon={ArrowRight} className="px-6 py-2.5">
+          <Button variant="accent" onClick={onOpenTrialModal} icon={ArrowRight} className="px-6 py-2.5">
             無料体験
           </Button>
         </nav>

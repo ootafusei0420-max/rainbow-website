@@ -4,6 +4,7 @@ import { Footer } from './components/layout/Footer';
 import { Header } from './components/layout/Header';
 import { MobileStickyCta } from './components/layout/MobileStickyCta';
 import { ContactSection } from './components/sections/ContactSection';
+import { TrialContactModal } from './components/common/TrialContactModal';
 import { CoursesSection } from './components/sections/CoursesSection';
 import { FeaturesSection } from './components/sections/FeaturesSection';
 import { FlowSection } from './components/sections/FlowSection';
@@ -15,6 +16,7 @@ import './styles/customAnimations.css';
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeTab, setActiveTab] = useState('elementary');
+  const [isTrialModalOpen, setIsTrialModalOpen] = useState(false);
 
   const scrollToSection = (id) => {
     setIsMenuOpen(false);
@@ -31,15 +33,22 @@ export default function App() {
         isMenuOpen={isMenuOpen}
         onMenuToggle={() => setIsMenuOpen((prev) => !prev)}
         onScrollToSection={scrollToSection}
+        onOpenTrialModal={() => setIsTrialModalOpen(true)}
       />
-      <HeroSection onScrollToSection={scrollToSection} />
+      <HeroSection onScrollToSection={scrollToSection} onOpenTrialModal={() => setIsTrialModalOpen(true)} />
       <FeaturesSection />
       <CoursesSection />
       <PricingSection activeTab={activeTab} setActiveTab={setActiveTab} />
       <FlowSection />
       <ContactSection contactInfo={CONTACT_INFO} />
       <Footer />
-      <MobileStickyCta phone={CONTACT_INFO.phone} onReserve={() => scrollToSection('contact')} />
+      <MobileStickyCta phone={CONTACT_INFO.phone} onReserve={() => setIsTrialModalOpen(true)} />
+      <TrialContactModal
+        isOpen={isTrialModalOpen}
+        onClose={() => setIsTrialModalOpen(false)}
+        phone={CONTACT_INFO.phone}
+        lineUrl={CONTACT_INFO.lineUrl}
+      />
     </div>
   );
 }

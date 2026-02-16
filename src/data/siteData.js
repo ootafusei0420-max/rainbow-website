@@ -1,7 +1,8 @@
 export const CONTACT_INFO = {
-  phone: '03-xxxx-xxxx',
+  phone: '0120111222',
   email: 'info@example-juku.com',
   line: '@example_line',
+  lineUrl: 'https://lin.ee/example',
 };
 
 export const NAV_ITEMS = [
