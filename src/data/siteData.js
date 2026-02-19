@@ -18,6 +18,12 @@ export const NAV_ITEMS = [
   { label: 'FAQ', id: 'faq' },
 ];
 
+export const PAGE_LINK_ITEMS = [
+  { label: 'お知らせ', href: '/news' },
+  { label: '合格実績', href: '/results' },
+  { label: 'アクセス', href: '/access' },
+];
+
 export const MOBILE_NAV_ITEMS = [...NAV_ITEMS, { label: 'アクセス', id: 'contact' }];
 
 export const FLOW_STEPS = [

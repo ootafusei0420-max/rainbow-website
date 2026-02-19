@@ -1,6 +1,6 @@
 import { ArrowRight, Menu, X } from 'lucide-react';
 import { Button } from '../common/Button';
-import { MOBILE_NAV_ITEMS, NAV_ITEMS } from '../../data/siteData';
+import { MOBILE_NAV_ITEMS, NAV_ITEMS, PAGE_LINK_ITEMS } from '../../data/siteData';
 
 export function Header({ isMenuOpen, onMenuToggle, onScrollToSection, onOpenTrialModal, activeSection, focusMode, onToggleFocusMode }) {
   return (
@@ -16,6 +16,14 @@ export function Header({ isMenuOpen, onMenuToggle, onScrollToSection, onOpenTria
         </div>
 
         <nav className="hidden md:flex items-center gap-4">
+          {PAGE_LINK_ITEMS.map((item) => (
+            <a key={item.label} href={item.href} className="text-xs font-bold text-slate-500 hover:text-sky-600 transition-colors">
+              {item.label}
+            </a>
+          ))}
+
+          <div className="w-px h-5 bg-slate-200 mx-1" />
+
           {NAV_ITEMS.map((item) => (
             <button
               key={item.id}
@@ -51,6 +59,15 @@ export function Header({ isMenuOpen, onMenuToggle, onScrollToSection, onOpenTria
           <button onClick={onToggleFocusMode} className={`text-left px-4 py-3 font-bold rounded-lg ${focusMode ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-700'}`}>
             集中モード {focusMode ? 'ON' : 'OFF'}
           </button>
+
+          <div className="pt-2 pb-1 text-[11px] font-bold text-slate-400 px-2">他ページ</div>
+          {PAGE_LINK_ITEMS.map((item) => (
+            <a key={item.label} href={item.href} className="text-left px-4 py-3 font-bold rounded-lg text-slate-700 hover:bg-slate-50">
+              {item.label}
+            </a>
+          ))}
+
+          <div className="pt-2 pb-1 text-[11px] font-bold text-slate-400 px-2">このページ内</div>
           {MOBILE_NAV_ITEMS.map((item) => (
             <button
               key={item.id}
