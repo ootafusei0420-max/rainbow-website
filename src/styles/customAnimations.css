@@ -91,3 +91,22 @@
     transform: none !important;
   }
 }
+
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.25; transform: scale(0.7); }
+  50% { opacity: 0.95; transform: scale(1); }
+}
+
+.animate-twinkle {
+  animation: twinkle 4s ease-in-out infinite;
+}
+
+@keyframes splashZoom {
+  0% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+.animate-splash-zoom {
+  animation: splashZoom 1.8s ease-out forwards;
+}

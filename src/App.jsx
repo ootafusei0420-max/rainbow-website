@@ -5,6 +5,7 @@ import { ReadingProgressBar } from './components/common/ReadingProgressBar';
 import { TrialContactModal } from './components/common/TrialContactModal';
 import { AnimatedBackground } from './components/layout/AnimatedBackground';
 import { Footer } from './components/layout/Footer';
+import { IntroSplash } from './components/layout/IntroSplash';
 import { Header } from './components/layout/Header';
 import { MobileStickyCta } from './components/layout/MobileStickyCta';
 import { ContactSection } from './components/sections/ContactSection';
@@ -24,6 +25,7 @@ export default function App() {
   const [activeSection, setActiveSection] = useState('features');
   const [isMobileViewport, setIsMobileViewport] = useState(false);
   const [focusMode, setFocusMode] = useState(false);
+  const [showSplash, setShowSplash] = useState(true);
 
   const scrollToSection = (id) => {
     setIsMenuOpen(false);
@@ -81,6 +83,7 @@ export default function App() {
 
   return (
     <div className="font-sans text-slate-600 bg-slate-50 min-h-screen selection:bg-pink-100 selection:text-pink-900 overflow-x-hidden">
+      {showSplash && <IntroSplash onComplete={() => setShowSplash(false)} />}
       {!calmMode && <ReadingProgressBar />}
       <AnimatedBackground disabled={calmMode} />
       <Header
