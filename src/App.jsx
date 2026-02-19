@@ -21,6 +21,7 @@ export default function App() {
   const [activeTab, setActiveTab] = useState('elementary');
   const [isTrialModalOpen, setIsTrialModalOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('features');
+  const [isMobileViewport, setIsMobileViewport] = useState(false);
 
   const scrollToSection = (id) => {
     setIsMenuOpen(false);
@@ -29,6 +30,15 @@ export default function App() {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-width: 768px)');
+    const updateViewport = () => setIsMobileViewport(mediaQuery.matches);
+
+    updateViewport();
+    mediaQuery.addEventListener('change', updateViewport);
+    return () => mediaQuery.removeEventListener('change', updateViewport);
+  }, []);
 
   useEffect(() => {
     const ids = [...NAV_ITEMS.map((item) => item.id), 'contact', 'faq'];
@@ -54,8 +64,8 @@ export default function App() {
 
   return (
     <div className="font-sans text-slate-600 bg-slate-50 min-h-screen selection:bg-pink-100 selection:text-pink-900 overflow-x-hidden">
-      <ReadingProgressBar />
-      <AnimatedBackground />
+      {!isMobileViewport && <ReadingProgressBar />}
+      <AnimatedBackground disabled={isMobileViewport} />
       <Header
         isMenuOpen={isMenuOpen}
         onMenuToggle={() => setIsMenuOpen((prev) => !prev)}
@@ -80,7 +90,7 @@ export default function App() {
         businessHours={CONTACT_INFO.businessHours}
         lineId={CONTACT_INFO.line}
       />
-      <BackToTopButton />
+      {!isMobileViewport && <BackToTopButton />}
     </div>
   );
 }

@@ -77,3 +77,17 @@
     transition-duration: 0ms !important;
   }
 }
+
+
+@media (max-width: 768px) {
+  .animate-blob,
+  .animate-float {
+    animation: none !important;
+  }
+
+  .group:hover .group-hover\:-translate-y-1,
+  .group:hover .group-hover\:translate-x-1,
+  .group:hover .group-hover\:scale-105 {
+    transform: none !important;
+  }
+}
