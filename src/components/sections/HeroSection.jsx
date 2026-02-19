@@ -1,8 +1,22 @@
 import { ChevronRight, Sparkles, Star } from 'lucide-react';
+import { useMemo } from 'react';
 import { Button } from '../common/Button';
 import { Reveal } from '../common/Reveal';
 
+const getTimeMessage = () => {
+  const hour = new Date().getHours();
+  if (hour < 11) {
+    return 'おはようございます。朝学習で集中力アップ';
+  }
+  if (hour < 17) {
+    return '午後は復習が伸びやすい時間帯です';
+  }
+  return '夜は無理せず、短時間の定着学習がおすすめ';
+};
+
 export function HeroSection({ onScrollToSection, onOpenTrialModal }) {
+  const timeMessage = useMemo(() => getTimeMessage(), []);
+
   return (
     <section className="relative px-4 pt-32 pb-20 z-10 md:pt-44 md:pb-28">
       <div className="max-w-7xl mx-auto grid lg:grid-cols-12 gap-12 items-center">
@@ -19,6 +33,9 @@ export function HeroSection({ onScrollToSection, onOpenTrialModal }) {
             <p className="type-body content-readable mx-auto lg:mx-0">
               入塾を急かすことはありません。お子様の性格に合う先生か、無理なく通えるか。じっくり見極めていただくための、
               <span className="font-bold text-text-primary">「失敗しない」</span>学習塾です。
+            </p>
+            <p className="inline-flex items-center rounded-full bg-amber-50 text-amber-700 px-4 py-2 text-xs font-bold border border-amber-100">
+              {timeMessage}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
               <Button variant="accent" onClick={onOpenTrialModal} icon={ChevronRight} className="min-w-[200px]">

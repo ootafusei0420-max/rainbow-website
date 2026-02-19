@@ -15,6 +15,7 @@ export const NAV_ITEMS = [
   { label: 'コース', id: 'courses' },
   { label: '料金', id: 'pricing' },
   { label: '流れ', id: 'flow' },
+  { label: 'FAQ', id: 'faq' },
 ];
 
 export const MOBILE_NAV_ITEMS = [...NAV_ITEMS, { label: 'アクセス', id: 'contact' }];

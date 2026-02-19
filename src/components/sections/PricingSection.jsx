@@ -1,10 +1,20 @@
 import { CheckCircle, Sparkles } from 'lucide-react';
+import { useMemo, useState } from 'react';
 import { PRICING_BY_TAB, PRICING_TABS } from '../../data/siteData';
 import { Button } from '../common/Button';
 import { Reveal } from '../common/Reveal';
 import { SectionTitle } from '../common/SectionTitle';
 
 export function PricingSection({ activeTab, setActiveTab }) {
+  const [isAnnual, setIsAnnual] = useState(false);
+  const [sessionsPerWeek, setSessionsPerWeek] = useState(2);
+
+  const selectedMonthlyPrice = PRICING_BY_TAB[activeTab][sessionsPerWeek - 1];
+  const selectedYearlyPrice = useMemo(() => {
+    const base = selectedMonthlyPrice * 12;
+    return isAnnual ? Math.round(base * 0.95) : base;
+  }, [isAnnual, selectedMonthlyPrice]);
+
   return (
     <section id="pricing" className="py-24 relative">
       <div className="absolute top-1/2 left-0 w-full h-1/2 bg-sky-50/50 -skew-y-3 z-0" />
@@ -24,7 +34,7 @@ export function PricingSection({ activeTab, setActiveTab }) {
           </div>
         </Reveal>
 
-        <div className="flex justify-center mb-8">
+        <div className="flex flex-wrap justify-center items-center gap-3 mb-6">
           <div className="bg-white/80 backdrop-blur p-1.5 rounded-full shadow-sm border border-slate-200 inline-flex">
             {PRICING_TABS.map((tab) => (
               <button
@@ -38,9 +48,15 @@ export function PricingSection({ activeTab, setActiveTab }) {
               </button>
             ))}
           </div>
+          <button
+            onClick={() => setIsAnnual((prev) => !prev)}
+            className={`text-xs font-bold px-4 py-2 rounded-full border transition ${isAnnual ? 'bg-emerald-100 text-emerald-700 border-emerald-200' : 'bg-white text-slate-600 border-slate-200'}`}
+          >
+            {isAnnual ? '年払い(5%OFF)を適用中' : '年払い(5%OFF)に切替'}
+          </button>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-3 gap-6 mb-7">
           {PRICING_BY_TAB[activeTab].map((price, index) => {
             const times = index + 1;
             const popular = times === 2;
@@ -64,6 +80,20 @@ export function PricingSection({ activeTab, setActiveTab }) {
               </Reveal>
             );
           })}
+        </div>
+
+        <div className="bg-white rounded-2xl border border-slate-100 p-5 shadow-sm">
+          <p className="text-sm font-bold text-slate-700 mb-3">年間費用シミュレーター</p>
+          <input
+            type="range"
+            min="1"
+            max="3"
+            value={sessionsPerWeek}
+            onChange={(e) => setSessionsPerWeek(Number(e.target.value))}
+            className="w-full accent-sky-500"
+          />
+          <p className="text-xs text-slate-500 mt-2">週{sessionsPerWeek}回コース / {isAnnual ? '年払い(5%OFF)' : '月払い'} 想定</p>
+          <p className="text-2xl font-extrabold text-slate-800 mt-1">{selectedYearlyPrice.toLocaleString()}円<span className="text-sm text-slate-400 font-normal ml-1">/ 年</span></p>
         </div>
       </div>
     </section>

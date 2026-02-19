@@ -2,7 +2,7 @@ import { ArrowRight, Menu, X } from 'lucide-react';
 import { Button } from '../common/Button';
 import { MOBILE_NAV_ITEMS, NAV_ITEMS } from '../../data/siteData';
 
-export function Header({ isMenuOpen, onMenuToggle, onScrollToSection, onOpenTrialModal }) {
+export function Header({ isMenuOpen, onMenuToggle, onScrollToSection, onOpenTrialModal, activeSection }) {
   return (
     <header className="fixed top-0 w-full z-50 transition-all duration-300">
       <div className="absolute inset-0 bg-white/80 backdrop-blur-md border-b border-white/20 shadow-sm" />
@@ -20,10 +20,10 @@ export function Header({ isMenuOpen, onMenuToggle, onScrollToSection, onOpenTria
             <button
               key={item.id}
               onClick={() => onScrollToSection(item.id)}
-              className="text-sm font-bold text-slate-500 hover:text-sky-600 transition-colors relative group"
+              className={`text-sm font-bold transition-colors relative group ${activeSection === item.id ? 'text-sky-700' : 'text-slate-500 hover:text-sky-600'}`}
             >
               {item.label}
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-sky-600 transition-all group-hover:w-full" />
+              <span className={`absolute -bottom-1 left-0 h-0.5 bg-sky-600 transition-all ${activeSection === item.id ? 'w-full' : 'w-0 group-hover:w-full'}`} />
             </button>
           ))}
           <Button variant="accent" onClick={onOpenTrialModal} icon={ArrowRight} className="px-6 py-2.5">
@@ -49,7 +49,7 @@ export function Header({ isMenuOpen, onMenuToggle, onScrollToSection, onOpenTria
             <button
               key={item.id}
               onClick={() => onScrollToSection(item.id)}
-              className="text-left px-4 py-3 font-bold text-slate-700 hover:bg-slate-50 rounded-lg"
+              className={`text-left px-4 py-3 font-bold rounded-lg ${activeSection === item.id ? 'bg-sky-50 text-sky-700' : 'text-slate-700 hover:bg-slate-50'}`}
             >
               {item.label}
             </button>
