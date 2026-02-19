@@ -1,6 +1,9 @@
 import { Phone } from 'lucide-react';
+import { formatPhoneNumber, getTelHref } from '../../utils/contact';
 
 export function MobileStickyCta({ phone, onReserve }) {
+  const phoneLabel = formatPhoneNumber(phone);
+
   return (
     <div className="md:hidden fixed bottom-4 left-4 right-4 z-50">
       <div className="bg-slate-900/90 backdrop-blur text-white rounded-full p-2 shadow-2xl flex items-center justify-between pl-6 pr-2 border border-white/10">
@@ -9,7 +12,7 @@ export function MobileStickyCta({ phone, onReserve }) {
           <span className="font-bold text-sm">無料体験・相談</span>
         </div>
         <div className="flex gap-2">
-          <a href={`tel:${phone}`} className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-green-400">
+          <a href={getTelHref(phone)} aria-label={`${phoneLabel}に電話する`} className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-green-400">
             <Phone size={18} />
           </a>
           <button

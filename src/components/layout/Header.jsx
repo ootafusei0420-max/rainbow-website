@@ -42,6 +42,9 @@ export function Header({ isMenuOpen, onMenuToggle, onScrollToSection, onOpenTria
         }`}
       >
         <div className="p-4 flex flex-col gap-2">
+          <button onClick={onOpenTrialModal} className="text-left px-4 py-3 font-bold text-white bg-sky-500 rounded-lg">
+            無料体験を申し込む
+          </button>
           {MOBILE_NAV_ITEMS.map((item) => (
             <button
               key={item.id}

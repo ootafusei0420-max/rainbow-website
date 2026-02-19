@@ -3,6 +3,11 @@ export const CONTACT_INFO = {
   email: 'info@example-juku.com',
   line: '@example_line',
   lineUrl: 'https://lin.ee/example',
+  businessHours: {
+    label: '平日 10:00〜20:00',
+    callStartHour: 10,
+    callEndHour: 20,
+  },
 };
 
 export const NAV_ITEMS = [

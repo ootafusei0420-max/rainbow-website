@@ -1,7 +1,10 @@
 import { ArrowRight, Mail, Phone } from 'lucide-react';
 import { Button } from '../common/Button';
+import { formatPhoneNumber } from '../../utils/contact';
 
-export function ContactSection({ contactInfo }) {
+export function ContactSection({ contactInfo, onOpenTrialModal }) {
+  const formattedPhone = formatPhoneNumber(contactInfo.phone);
+
   return (
     <section id="contact" className="py-24 px-4">
       <div className="max-w-4xl mx-auto relative">
@@ -22,17 +25,20 @@ export function ContactSection({ contactInfo }) {
                   <Phone className="text-sky-400" />
                   <div>
                     <div className="text-xs text-slate-400">お電話でのご相談</div>
-                    <div className="font-bold text-xl">{contactInfo.phone}</div>
+                    <div className="font-bold text-xl">{formattedPhone}</div>
                   </div>
                 </div>
-                <div className="flex items-center gap-4 bg-white/10 p-4 rounded-xl backdrop-blur-sm">
+                <a href={contactInfo.lineUrl} target="_blank" rel="noreferrer" className="flex items-center gap-4 bg-white/10 p-4 rounded-xl backdrop-blur-sm hover:bg-white/15 transition-colors">
                   <Mail className="text-pink-400" />
                   <div>
-                    <div className="text-xs text-slate-400">メールでのご相談</div>
-                    <div className="font-bold text-sm">24時間受付中</div>
+                    <div className="text-xs text-slate-400">LINEでのご相談</div>
+                    <div className="font-bold text-sm">{contactInfo.line}</div>
                   </div>
-                </div>
+                </a>
               </div>
+              <Button variant="secondary" className="mt-5" onClick={onOpenTrialModal}>
+                体験授業を申し込む
+              </Button>
             </div>
 
             <form className="bg-white text-slate-800 rounded-2xl p-6 shadow-lg space-y-4" onSubmit={(e) => e.preventDefault()}>

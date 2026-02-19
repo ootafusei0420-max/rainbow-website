@@ -40,7 +40,7 @@ export default function App() {
       <CoursesSection />
       <PricingSection activeTab={activeTab} setActiveTab={setActiveTab} />
       <FlowSection />
-      <ContactSection contactInfo={CONTACT_INFO} />
+      <ContactSection contactInfo={CONTACT_INFO} onOpenTrialModal={() => setIsTrialModalOpen(true)} />
       <Footer />
       <MobileStickyCta phone={CONTACT_INFO.phone} onReserve={() => setIsTrialModalOpen(true)} />
       <TrialContactModal
@@ -48,6 +48,8 @@ export default function App() {
         onClose={() => setIsTrialModalOpen(false)}
         phone={CONTACT_INFO.phone}
         lineUrl={CONTACT_INFO.lineUrl}
+        businessHours={CONTACT_INFO.businessHours}
+        lineId={CONTACT_INFO.line}
       />
     </div>
   );
