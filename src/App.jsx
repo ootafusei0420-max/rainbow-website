@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { BackToTopButton } from './components/common/BackToTopButton';
+import { NextSectionGuide } from './components/common/NextSectionGuide';
 import { ReadingProgressBar } from './components/common/ReadingProgressBar';
 import { TrialContactModal } from './components/common/TrialContactModal';
 import { AnimatedBackground } from './components/layout/AnimatedBackground';
@@ -22,6 +23,7 @@ export default function App() {
   const [isTrialModalOpen, setIsTrialModalOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('features');
   const [isMobileViewport, setIsMobileViewport] = useState(false);
+  const [focusMode, setFocusMode] = useState(false);
 
   const scrollToSection = (id) => {
     setIsMenuOpen(false);
@@ -39,6 +41,19 @@ export default function App() {
     mediaQuery.addEventListener('change', updateViewport);
     return () => mediaQuery.removeEventListener('change', updateViewport);
   }, []);
+
+  useEffect(() => {
+    const saved = localStorage.getItem('focusMode');
+    setFocusMode(saved === 'on');
+  }, []);
+
+  const toggleFocusMode = () => {
+    setFocusMode((prev) => {
+      const next = !prev;
+      localStorage.setItem('focusMode', next ? 'on' : 'off');
+      return next;
+    });
+  };
 
   useEffect(() => {
     const ids = [...NAV_ITEMS.map((item) => item.id), 'contact', 'faq'];
@@ -62,16 +77,20 @@ export default function App() {
     return () => observer.disconnect();
   }, []);
 
+  const calmMode = isMobileViewport || focusMode;
+
   return (
     <div className="font-sans text-slate-600 bg-slate-50 min-h-screen selection:bg-pink-100 selection:text-pink-900 overflow-x-hidden">
-      {!isMobileViewport && <ReadingProgressBar />}
-      <AnimatedBackground disabled={isMobileViewport} />
+      {!calmMode && <ReadingProgressBar />}
+      <AnimatedBackground disabled={calmMode} />
       <Header
         isMenuOpen={isMenuOpen}
         onMenuToggle={() => setIsMenuOpen((prev) => !prev)}
         onScrollToSection={scrollToSection}
         onOpenTrialModal={() => setIsTrialModalOpen(true)}
         activeSection={activeSection}
+        focusMode={focusMode}
+        onToggleFocusMode={toggleFocusMode}
       />
       <HeroSection onScrollToSection={scrollToSection} onOpenTrialModal={() => setIsTrialModalOpen(true)} />
       <FeaturesSection />
@@ -81,6 +100,7 @@ export default function App() {
       <FaqSection />
       <ContactSection contactInfo={CONTACT_INFO} onOpenTrialModal={() => setIsTrialModalOpen(true)} />
       <Footer />
+      <NextSectionGuide currentSection={activeSection} onMove={scrollToSection} />
       <MobileStickyCta phone={CONTACT_INFO.phone} onReserve={() => setIsTrialModalOpen(true)} />
       <TrialContactModal
         isOpen={isTrialModalOpen}
@@ -90,7 +110,7 @@ export default function App() {
         businessHours={CONTACT_INFO.businessHours}
         lineId={CONTACT_INFO.line}
       />
-      {!isMobileViewport && <BackToTopButton />}
+      {!calmMode && <BackToTopButton />}
     </div>
   );
 }
