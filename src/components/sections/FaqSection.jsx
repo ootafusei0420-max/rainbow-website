@@ -3,7 +3,7 @@ import { useMemo, useState } from 'react';
 import { Reveal } from '../common/Reveal';
 import { SectionTitle } from '../common/SectionTitle';
 
-const FAQ_CATEGORIES = [
+export const FAQ_CATEGORIES = [
   {
     category: '体験・入塾について',
     items: [

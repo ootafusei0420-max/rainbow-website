@@ -3,6 +3,7 @@ import { BackToTopButton } from './components/common/BackToTopButton';
 import { NextSectionGuide } from './components/common/NextSectionGuide';
 import { ReadingProgressBar } from './components/common/ReadingProgressBar';
 import { TrialContactModal } from './components/common/TrialContactModal';
+import { StructuredData } from './components/common/StructuredData';
 import { AnimatedBackground } from './components/layout/AnimatedBackground';
 import { Footer } from './components/layout/Footer';
 import { IntroSplash } from './components/layout/IntroSplash';
@@ -10,7 +11,7 @@ import { Header } from './components/layout/Header';
 import { MobileStickyCta } from './components/layout/MobileStickyCta';
 import { ContactSection } from './components/sections/ContactSection';
 import { CoursesSection } from './components/sections/CoursesSection';
-import { FaqSection } from './components/sections/FaqSection';
+import { FAQ_CATEGORIES, FaqSection } from './components/sections/FaqSection';
 import { FeaturesSection } from './components/sections/FeaturesSection';
 import { FlowSection } from './components/sections/FlowSection';
 import { HeroSection } from './components/sections/HeroSection';
@@ -86,6 +87,7 @@ export default function App() {
       {showSplash && <IntroSplash onComplete={() => setShowSplash(false)} />}
       {!calmMode && <ReadingProgressBar />}
       <AnimatedBackground disabled={calmMode} />
+      <StructuredData faqCategories={FAQ_CATEGORIES} />
       <Header
         isMenuOpen={isMenuOpen}
         onMenuToggle={() => setIsMenuOpen((prev) => !prev)}
