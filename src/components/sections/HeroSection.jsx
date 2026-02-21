@@ -1,27 +1,44 @@
 import { ChevronRight, Sparkles, Star } from 'lucide-react';
+import { useMemo } from 'react';
 import { Button } from '../common/Button';
 import { Reveal } from '../common/Reveal';
 
-export function HeroSection({ onScrollToSection }) {
+const getTimeMessage = () => {
+  const hour = new Date().getHours();
+  if (hour < 11) {
+    return 'おはようございます。朝学習で集中力アップ';
+  }
+  if (hour < 17) {
+    return '午後は復習が伸びやすい時間帯です';
+  }
+  return '夜は無理せず、短時間の定着学習がおすすめ';
+};
+
+export function HeroSection({ onScrollToSection, onOpenTrialModal }) {
+  const timeMessage = useMemo(() => getTimeMessage(), []);
+
   return (
-    <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 px-4 z-10">
+    <section className="relative px-4 pt-32 pb-20 z-10 md:pt-44 md:pb-28">
       <div className="max-w-7xl mx-auto grid lg:grid-cols-12 gap-12 items-center">
         <div className="lg:col-span-7 space-y-8 text-center lg:text-left">
           <Reveal>
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-sky-100 shadow-sm text-sky-700 text-sm font-bold mb-4">
-              <Sparkles size={16} className="text-yellow-400 fill-yellow-400" />
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-sky-100 shadow-sm text-brand-skyDark text-sm font-bold mb-4">
+              <Sparkles size={16} className="text-brand-yellow fill-brand-yellow" />
               <span>まずは「3回」の無料体験から</span>
             </div>
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold text-slate-900 leading-[1.15] tracking-tight">
+            <h1 className="type-display">
               相性を確かめて、<br />
               <span className="marker-underline">安心</span>して始める。
             </h1>
-            <p className="text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+            <p className="type-body content-readable mx-auto lg:mx-0">
               入塾を急かすことはありません。お子様の性格に合う先生か、無理なく通えるか。じっくり見極めていただくための、
-              <span className="font-bold text-slate-800">「失敗しない」</span>学習塾です。
+              <span className="font-bold text-text-primary">「失敗しない」</span>学習塾です。
+            </p>
+            <p className="inline-flex items-center rounded-full bg-amber-50 text-amber-700 px-4 py-2 text-xs font-bold border border-amber-100">
+              {timeMessage}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
-              <Button variant="accent" onClick={() => onScrollToSection('contact')} icon={ChevronRight} className="min-w-[200px]">
+              <Button variant="accent" onClick={onOpenTrialModal} icon={ChevronRight} className="min-w-[200px]">
                 体験授業を申し込む
               </Button>
               <Button variant="secondary" onClick={() => onScrollToSection('features')}>
@@ -31,18 +48,24 @@ export function HeroSection({ onScrollToSection }) {
           </Reveal>
         </div>
 
-        <div className="lg:col-span-5 relative h-[400px] md:h-[500px] hidden md:block">
+        <div className="lg:col-span-5 relative h-[380px] md:h-[480px] hidden md:block">
           <div className="absolute inset-0">
-            <div className="absolute top-10 right-0 w-64 h-80 rounded-3xl overflow-hidden shadow-2xl rotate-3 animate-float border-4 border-white">
-              <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=600&q=80" className="w-full h-full object-cover" alt="Study" />
+            <div className="absolute top-10 right-0 w-64 h-80 rounded-card overflow-hidden shadow-card rotate-2 animate-float border-4 border-white">
+              <img
+                src="https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=700&q=80"
+                className="w-full h-full object-cover"
+                alt="学習に集中する生徒"
+              />
+              <div className="absolute inset-0 bg-brand-sky/10" />
             </div>
-            <div className="absolute top-40 left-10 w-48 h-60 rounded-3xl overflow-hidden shadow-xl -rotate-6 animate-float animation-delay-2000 border-4 border-white">
-              <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=600&q=80" className="w-full h-full object-cover" alt="Classroom" />
-            </div>
-            <div className="absolute bottom-20 right-20 bg-white/90 backdrop-blur p-4 rounded-2xl shadow-xl animate-float animation-delay-4000 max-w-[180px]">
-              <div className="flex gap-1 mb-2">{[1, 2, 3, 4, 5].map((i) => <Star key={i} size={14} className="text-yellow-400 fill-yellow-400" />)}</div>
-              <p className="text-xs font-bold text-slate-800">「自分のペースで進められるので楽しい！」</p>
-              <p className="text-[10px] text-slate-500 mt-1">- 小学5年生 保護者様</p>
+            <div className="absolute bottom-20 right-16 bg-white/95 backdrop-blur p-4 rounded-soft shadow-card max-w-[185px] border border-white/70">
+              <div className="flex gap-1 mb-2">
+                {[1, 2, 3, 4, 5].map((i) => (
+                  <Star key={i} size={14} className="text-brand-yellow fill-brand-yellow" />
+                ))}
+              </div>
+              <p className="text-xs font-bold text-text-primary">「自分のペースで進められるので楽しい！」</p>
+              <p className="text-[10px] text-text-muted mt-1">- 小学5年生 保護者様</p>
             </div>
           </div>
         </div>

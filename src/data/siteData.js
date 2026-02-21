@@ -1,7 +1,13 @@
 export const CONTACT_INFO = {
-  phone: '03-xxxx-xxxx',
+  phone: '0120111222',
   email: 'info@example-juku.com',
   line: '@example_line',
+  lineUrl: 'https://lin.ee/example',
+  businessHours: {
+    label: '平日 10:00〜20:00',
+    callStartHour: 10,
+    callEndHour: 20,
+  },
 };
 
 export const NAV_ITEMS = [
@@ -9,6 +15,13 @@ export const NAV_ITEMS = [
   { label: 'コース', id: 'courses' },
   { label: '料金', id: 'pricing' },
   { label: '流れ', id: 'flow' },
+  { label: 'FAQ', id: 'faq' },
+];
+
+export const PAGE_LINK_ITEMS = [
+  { label: 'お知らせ', href: '/news' },
+  { label: '合格実績', href: '/results' },
+  { label: 'アクセス', href: '/access' },
 ];
 
 export const MOBILE_NAV_ITEMS = [...NAV_ITEMS, { label: 'アクセス', id: 'contact' }];

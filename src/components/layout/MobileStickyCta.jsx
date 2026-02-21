@@ -1,24 +1,28 @@
-import { Phone } from 'lucide-react';
+import { MessageCircleMore, Phone } from 'lucide-react';
+import { formatPhoneNumber, getTelHref } from '../../utils/contact';
 
 export function MobileStickyCta({ phone, onReserve }) {
+  const phoneLabel = formatPhoneNumber(phone);
+
   return (
     <div className="md:hidden fixed bottom-4 left-4 right-4 z-50">
-      <div className="bg-slate-900/90 backdrop-blur text-white rounded-full p-2 shadow-2xl flex items-center justify-between pl-6 pr-2 border border-white/10">
-        <div className="flex flex-col">
-          <span className="text-[10px] text-slate-400">まずは気軽に</span>
-          <span className="font-bold text-sm">無料体験・相談</span>
-        </div>
-        <div className="flex gap-2">
-          <a href={`tel:${phone}`} className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-green-400">
-            <Phone size={18} />
+      <div className="bg-white/95 backdrop-blur rounded-2xl p-3 shadow-xl border border-slate-200">
+        <div className="flex items-center justify-between gap-3 mb-2">
+          <div>
+            <p className="text-[11px] text-slate-500">迷ったらまずは</p>
+            <p className="font-bold text-slate-800 text-sm">無料体験の相談（1分）</p>
+          </div>
+          <a href={getTelHref(phone)} aria-label={`${phoneLabel}に電話する`} className="text-xs font-bold text-slate-600 underline underline-offset-2 inline-flex items-center gap-1">
+            <Phone size={13} /> {phoneLabel}
           </a>
-          <button
-            onClick={onReserve}
-            className="h-10 px-5 bg-sky-500 rounded-full flex items-center justify-center font-bold text-sm shadow-lg shadow-sky-500/30"
-          >
-            予約
-          </button>
         </div>
+
+        <button
+          onClick={onReserve}
+          className="w-full h-11 bg-sky-500 rounded-xl flex items-center justify-center font-bold text-sm text-white shadow-lg shadow-sky-500/30"
+        >
+          <MessageCircleMore size={16} className="mr-1" /> LINE・電話の相談先を開く
+        </button>
       </div>
     </div>
   );
